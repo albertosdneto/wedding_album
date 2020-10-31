@@ -27,5 +27,5 @@ pip install -r requirements.txt
 
 Run the app
 ```
-flask run
+gunicorn 'wedding_album:create_app()'
 ```
