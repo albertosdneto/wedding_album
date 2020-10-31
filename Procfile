@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file -
+web: gunicorn 'wedding_album:create_app()' --log-file -
