@@ -1,6 +1,9 @@
 # Wedding album
 Wedding album that allows the bride and groom to select which photos provided by guests will be shown.
 
+## Working version
+To see the app running access: https://weddingalbum2020.herokuapp.com/ 
+
 
 ## Get Started
 
