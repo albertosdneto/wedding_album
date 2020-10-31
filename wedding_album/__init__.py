@@ -24,9 +24,6 @@ def create_app():
         debug=debug,
     )
 
-    new_user = User(username='alberto', password='test')
-    new_user.save()
-
     from . import album
     app.register_blueprint(album.bp)
     app.add_url_rule('/', endpoint='index')
