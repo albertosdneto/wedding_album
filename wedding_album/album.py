@@ -131,7 +131,6 @@ def single_photo():
 
 @bp.route('/_like')
 @login_required
-@host_required
 def like():
     photo_id = request.args.get('photo_id', 0, type=str)
 
