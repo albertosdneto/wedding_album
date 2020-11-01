@@ -37,6 +37,9 @@ IS_PROD=True
 DEBUG=False
 SECRET_KEY=SomeRandomKey
 DATABASE_URL=mongodb+srv://<username>:<password>@clusterXX.vavnb.mongodb.net/<database>?retryWrites=true&w=majority
+S3_BUCKET_NAME=bucket-name
+S3_KEY=access_key
+S3_SECRET=SECRET_ACCESS_KEY
 ```
 
 Run the app

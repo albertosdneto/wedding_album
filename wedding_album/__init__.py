@@ -16,10 +16,18 @@ def create_app():
         connect(host=os.environ.get('DATABASE_URL'))
         secret_key = os.environ.get('SECRET_KEY')
         debug = os.environ.get('DEBUG')
+        S3_BUCKET = os.environ.get("S3_BUCKET_NAME")
+        S3_KEY = os.environ.get("S3_ACCESS_KEY")
+        S3_SECRET = os.environ.get("S3_SECRET_ACCESS_KEY")
+        S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)
     else:
         connect(host=config('DATABASE_URL'))
         secret_key = config('SECRET_KEY')
         debug = config('DEBUG', default=False, cast=bool)
+        S3_BUCKET = config("S3_BUCKET_NAME")
+        S3_KEY = config("S3_ACCESS_KEY")
+        S3_SECRET = config("S3_SECRET_ACCESS_KEY")
+        S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)
 
     # Creates Admin on setup
     admin = User.objects(username='admin')

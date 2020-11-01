@@ -6,11 +6,16 @@
     border: 1px solid grey;
 }
 
-.left-items{
+.left-items {
     display: contents;
     color: white;
 }
 
-.left-items a{
+.left-items a {
     color: white;
+}
+
+.card {
+    height: 400px;
+    margin: 10px;
 }

@@ -8,9 +8,40 @@
 
 
 {% block content %}
-<div class="container">
-<h3>My Uploads</h3>
-</div>
+    <div class="container">
+        <h3>My Uploads</h3>
+
+        <form action="{{ url_for('album.my_uploads') }}" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="user_file">Upload Your File</label>
+                <input type="file" name="user_file">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Upload</button>
+
+        </form>
+        <div class="d-flex flex-wrap">
+            {% for photo in photos %}
+
+                <div class="">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ photo.url }}" width="200px">
+                        <div class="card-body">
+                            <p class="card-text">by {{ photo.username }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}" type="button" class="btn btn-sm btn-outline-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
 {% endblock %}
 
 {% block bottomscript %}{% endblock %}
