@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from wedding_album.auth import login_required, host_required
 from .helpers import *
 import uuid
-from .models import Photo
+from .models import Photo, Comment
 
 bp = Blueprint('album', __name__)
 
@@ -83,3 +83,32 @@ def change_visibility():
     photo.save()
 
     return jsonify(result='success')
+
+
+@bp.route('/single_photo', methods=["GET", "POST"])
+@login_required
+def single_photo():
+    if request.method == 'POST':
+        error = None
+        content = request.form['content']
+        photo_id = request.form['photo_id']
+        new_comment = Comment(user_id=g.user.id, username=g.user.username,
+                              photo_id=photo_id, content=content)
+
+        if not content:
+            error = 'Content required'
+        if content.strip() == '':
+            error = 'Content required'
+
+        if error is None:
+            new_comment.save()
+            return redirect(url_for('album.single_photo') + '?id=' + photo_id)
+
+        flash(error, category='error')
+
+    photo_id = request.args.get('id', 0, type=str)
+    photo = Photo.objects(id=photo_id)[0]
+
+    comments = Comment.objects(photo_id=photo_id)
+
+    return render_template('album/single_photo.html', photo=photo, comments=comments)

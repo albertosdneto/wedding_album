@@ -1,5 +1,6 @@
 from mongoengine.document import Document
-from mongoengine.fields import StringField, ObjectIdField, URLField, BooleanField
+from mongoengine.fields import StringField, ObjectIdField, URLField, BooleanField, DateTimeField
+import datetime
 
 
 class User(Document):
@@ -23,6 +24,19 @@ class Photo(Document):
     meta = {
         'strict': False,
         'collection': 'photos',
+    }
+
+
+class Comment(Document):
+    user_id = ObjectIdField(required=True)
+    username = StringField()
+    photo_id = ObjectIdField(required=True)
+    content = StringField(required=True)
+    created = DateTimeField(default=datetime.datetime.utcnow)
+
+    meta = {
+        'strict': False,
+        'collection': 'comments',
     }
 
 

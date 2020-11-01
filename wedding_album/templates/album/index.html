@@ -12,11 +12,12 @@
 
                     <div class="">
                         <div class="card mb-4 shadow-sm">
-                            <img src="{{ photo.url }}" width="200px">
+                            <a href="{{ url_for('album.single_photo') }}?id={{ photo.id }}"><img src="{{ photo.url }}" width="200px"></a>
+
                             <div class="card-body">
                                 <p class="card-text">by {{ photo.username }}</p>
-                                <i class="fas fa-lg fa-heart" style="color: red"></i>
-                                <i class="far fa-lg fa-heart" style="color: red"></i>
+{#                                <i class="fas fa-lg fa-heart" style="color: red"></i>#}
+{#                                <i class="far fa-lg fa-heart" style="color: red"></i>#}
                             </div>
                         </div>
                     </div>
