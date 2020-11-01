@@ -62,7 +62,13 @@
                         <li class="nav-item">
                             <a href="{{ url_for('auth.manage_users') }}" class="nav-link">Manage users</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('album.all_photos') }}" class="nav-link">All Photos</a>
+                        </li>
                     {% endif %}
+                    <li class="nav-item">
+                            <a href="{{ url_for('album.my_uploads') }}" class="nav-link">My Photos</a>
+                        </li>
                     <li class="nav-item">
                         <a href="{{ url_for('auth.logout') }}" class="nav-link">Log Out</a>
                     </li>
