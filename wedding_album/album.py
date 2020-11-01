@@ -13,10 +13,14 @@ bp = Blueprint('album', __name__)
 @bp.route('/')
 def index():
     photos = Photo.objects(public=True)
-    my_likes = Like.objects(user_id=g.user.id)
     my_list = []
-    for item in my_likes:
-        my_list.append(item.photo_id)
+    if g.user is None:
+        pass
+    else:
+        my_likes = Like.objects(user_id=g.user.id)
+
+        for item in my_likes:
+            my_list.append(item.photo_id)
 
     return render_template('album/index.html', photos=photos, my_likes=my_list)
 
