@@ -8,9 +8,35 @@
 
 
 {% block content %}
-<div class="container">
-<h3>All Uploads</h3>
-</div>
+    <div class="container">
+        <h3>All Uploads</h3>
+        <div class="d-flex flex-wrap">
+            {% for photo in photos %}
+
+                <div class="">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ photo.url }}" width="200px">
+                        <div class="card-body">
+                            <p class="card-text">by {{ photo.username }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" id="{{ photo.id }}" name="public" class="show_photo" {% if photo.public == True %}checked{% endif %}>
+                                    <label for="public">Public</label>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}" type="button"
+                                       class="btn btn-sm btn-outline-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
-{% block bottomscript %}{% endblock %}
+{% block bottomscript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

@@ -12,7 +12,8 @@ bp = Blueprint('album', __name__)
 
 @bp.route('/')
 def index():
-    return render_template('album/index.html', )
+    photos = Photo.objects(public=True)
+    return render_template('album/index.html', photos=photos)
 
 
 @bp.route('/my_uploads', methods=["GET", "POST"])
@@ -63,4 +64,22 @@ def delete_photo():
 @login_required
 @host_required
 def all_photos():
-    return render_template('album/all_photos.html', )
+    photos = Photo.objects()
+    return render_template('album/all_photos.html', photos=photos)
+
+
+@bp.route('/_change_visibility')
+@login_required
+@host_required
+def change_visibility():
+    photo_id = request.args.get('id', 0, type=str)
+    status = request.args.get('status', 0, type=str)
+    if status == 'True':
+        status = True
+    else:
+        status = False
+    photo = Photo.objects(id=photo_id)[0]
+    photo.public = status
+    photo.save()
+
+    return jsonify(result='success')
