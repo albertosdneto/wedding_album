@@ -24,3 +24,13 @@ class Photo(Document):
         'strict': False,
         'collection': 'photos',
     }
+
+
+class Like(Document):
+    user_id = ObjectIdField(required=True)
+    photo_id = ObjectIdField(required=True)
+
+    meta = {
+        'strict': False,
+        'collection': 'likes',
+    }
