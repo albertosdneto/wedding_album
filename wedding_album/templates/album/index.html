@@ -6,19 +6,22 @@
 {% endblock %}
 {% block content %}
     {% if g.user %}
-        <div class="container">
-            <div class="d-flex flex-wrap">
-                {% for photo in photos %}
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
 
-                    <div class="">
-                        <div class="card mb-4 shadow-sm">
-                            <a href="{{ url_for('album.single_photo') }}?id={{ photo.id }}"><img src="{{ photo.url }}"
-                                                                                                 width="200px"></a>
+                    {% for photo in photos %}
 
-                            <div class="card-body">
-                                <p class="card-text">by {{ photo.username }}</p>
-                                {#                                <i class="fas fa-lg fa-heart" style="color: red"></i>#}
-                                <a href="#" class="like">
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <a href="{{ url_for('album.single_photo') }}?id={{ photo.id }}">
+                                    <img class="card-img-top" src="{{ photo.url }}">
+                                </a>
+
+                                <div class="card-body">
+                                    <p class="card-text">by {{ photo.username }}</p>
+
+                                    <a href="#" class="like">
 
                                     <span id="liked_{{ photo.id }}">
                                         {% if photo.id in my_likes %}
@@ -28,13 +31,15 @@
                                         {% endif %}
                                     </span>
 
-                                    <input type="text" id="photo_id_{{ photo.id }}" name="photo_id"
-                                           value="{{ photo.id }}" class="photo_id" hidden>
-                                </a>
+                                        <input type="text" id="photo_id_{{ photo.id }}" name="photo_id"
+                                               value="{{ photo.id }}" class="photo_id" hidden>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     {% else %}

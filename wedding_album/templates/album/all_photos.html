@@ -8,30 +8,34 @@
 
 
 {% block content %}
-    <div class="container">
-        <h3>All Uploads</h3>
-        <div class="d-flex flex-wrap">
-            {% for photo in photos %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <h3>All Uploads</h3>
+            <div class="row">
+                {% for photo in photos %}
 
-                <div class="">
-                    <div class="card mb-4 shadow-sm">
-                        <img src="{{ photo.url }}" width="200px">
-                        <div class="card-body">
-                            <p class="card-text">by {{ photo.username }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <input type="checkbox" id="{{ photo.id }}" name="public" class="show_photo" {% if photo.public == True %}checked{% endif %}>
-                                    <label for="public">Approved</label>
-                                </div>
-                                <div class="btn-group">
-                                    <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}" type="button"
-                                       class="btn btn-sm btn-outline-danger">Delete</a>
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top" src="{{ photo.url }}">
+                            <div class="card-body">
+                                <p class="card-text">by {{ photo.username }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <input type="checkbox" id="{{ photo.id }}" name="public" class="show_photo"
+                                               {% if photo.public == True %}checked{% endif %}>
+                                        <label for="public">Approved</label>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}"
+                                           type="button"
+                                           class="btn btn-sm btn-outline-danger">Delete</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
