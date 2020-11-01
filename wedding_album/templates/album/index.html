@@ -12,12 +12,25 @@
 
                     <div class="">
                         <div class="card mb-4 shadow-sm">
-                            <a href="{{ url_for('album.single_photo') }}?id={{ photo.id }}"><img src="{{ photo.url }}" width="200px"></a>
+                            <a href="{{ url_for('album.single_photo') }}?id={{ photo.id }}"><img src="{{ photo.url }}"
+                                                                                                 width="200px"></a>
 
                             <div class="card-body">
                                 <p class="card-text">by {{ photo.username }}</p>
-{#                                <i class="fas fa-lg fa-heart" style="color: red"></i>#}
-{#                                <i class="far fa-lg fa-heart" style="color: red"></i>#}
+                                {#                                <i class="fas fa-lg fa-heart" style="color: red"></i>#}
+                                <a href="#" class="like">
+
+                                    <span id="liked_{{ photo.id }}">
+                                        {% if photo.id in my_likes %}
+                                            <i class="fas fa-lg fa-heart" style="color: red"></i>
+                                        {% else %}
+                                            <i class="far fa-lg fa-heart" style="color: red"></i>
+                                        {% endif %}
+                                    </span>
+
+                                    <input type="text" id="photo_id_{{ photo.id }}" name="photo_id"
+                                           value="{{ photo.id }}" class="photo_id" hidden>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -37,4 +50,9 @@
         </section>
     {% endif %}
 
+{% endblock %}
+
+{% block bottomscript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}

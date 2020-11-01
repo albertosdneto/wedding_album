@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from wedding_album.auth import login_required, host_required
 from .helpers import *
 import uuid
-from .models import Photo, Comment
+from .models import Photo, Comment, Like
 
 bp = Blueprint('album', __name__)
 
@@ -13,7 +13,12 @@ bp = Blueprint('album', __name__)
 @bp.route('/')
 def index():
     photos = Photo.objects(public=True)
-    return render_template('album/index.html', photos=photos)
+    my_likes = Like.objects(user_id=g.user.id)
+    my_list = []
+    for item in my_likes:
+        my_list.append(item.photo_id)
+
+    return render_template('album/index.html', photos=photos, my_likes=my_list)
 
 
 @bp.route('/my_uploads', methods=["GET", "POST"])
@@ -111,4 +116,29 @@ def single_photo():
 
     comments = Comment.objects(photo_id=photo_id)
 
-    return render_template('album/single_photo.html', photo=photo, comments=comments)
+    liked = Like.objects(photo_id=photo_id, user_id=g.user.id)
+    if len(liked) == 0:
+        liked = False
+    else:
+        liked = True
+
+    return render_template('album/single_photo.html', photo=photo, comments=comments, liked=liked)
+
+
+@bp.route('/_like')
+@login_required
+@host_required
+def like():
+    photo_id = request.args.get('photo_id', 0, type=str)
+
+    like_photo = Like.objects(photo_id=photo_id, user_id=g.user.id)
+
+    if len(like_photo) == 0:
+        new_like = Like(user_id=g.user.id, photo_id=photo_id)
+        new_like.save()
+        result = 'liked'
+    else:
+        like_photo.delete()
+        result = 'disliked'
+
+    return jsonify(result=result)

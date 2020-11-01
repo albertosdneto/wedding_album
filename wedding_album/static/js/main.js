@@ -25,10 +25,29 @@ $(function () {
             id: id,
             status: status,
         }, function (data) {
-            // $("#role_" + id).text(data.result);
             console.log('success');
         });
 
+        return false;
+    });
+
+    // Like or remove like from photo
+    $('a.like').bind('click', function () {
+        var photo_id = $(this).closest('div.card').find('input[name="photo_id"]').val();
+        console.log(photo_id)
+        $.getJSON('_like', {
+            photo_id: photo_id,
+        }, function (data) {
+            if(data.result == 'liked'){
+                $("#liked_" + photo_id).html("<i class=\"fas fa-lg fa-heart\" style=\"color: red\"></i>")
+                // $("#liked_" + photo_id).text('<i class="fas fa-lg fa-heart" style="color: red"></i>');
+            } else {
+                $("#liked_" + photo_id).html("<i class=\"far fa-lg fa-heart\" style=\"color: red\"></i>")
+            }
+
+
+            console.log('like success')
+        });
         return false;
     });
 });

@@ -21,7 +21,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <input type="checkbox" id="{{ photo.id }}" name="public" class="show_photo" {% if photo.public == True %}checked{% endif %}>
-                                    <label for="public">Public</label>
+                                    <label for="public">Approved</label>
                                 </div>
                                 <div class="btn-group">
                                     <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}" type="button"

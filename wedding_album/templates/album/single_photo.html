@@ -12,18 +12,24 @@
 
         <p>
             <img src="{{ photo.url }}" width="600px">
-            <br>
-            by {{ photo.username }}
+            <br> <br>
+            <span id="liked_{{ photo.id }}">
+                {% if liked %}
+                    <i class="fas fa-lg fa-heart" style="color: red"></i>
+                {% else %}
+                    <i class="far fa-lg fa-heart" style="color: red"></i>
+                {% endif %}
+            </span> | by {{ photo.username }}
         </p>
         <form method="post">
 
             <textarea cols="50" rows="3" id="content" name="content"></textarea>
             <br>
-            <input type="text" value="{{ photo.id }}" name="photo_id" id="photo_id"  hidden>
+            <input type="text" value="{{ photo.id }}" name="photo_id" id="photo_id" hidden>
             <input type="submit" value="Comment" class="btn btn-primary">
 
         </form>
-    <br>
+        <br>
         {% for comment in comments %}
             <p><span class="font-weight-bold">{{ comment.username }}: </span> {{ comment.content }}</p>
         {% endfor %}
@@ -31,4 +37,7 @@
     </section>
 {% endblock %}
 
-{% block bottomscript %}{% endblock %}
+{% block bottomscript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

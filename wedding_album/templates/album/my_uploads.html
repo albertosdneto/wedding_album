@@ -21,6 +21,7 @@
             <button type="submit" class="btn btn-primary">Upload</button>
 
         </form>
+        <br>
         <div class="d-flex flex-wrap">
             {% for photo in photos %}
 
@@ -31,7 +32,8 @@
                             <p class="card-text">by {{ photo.username }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}" type="button" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    <a href="{{ url_for('album.delete_photo') }}?photo_id={{ photo.id }}" type="button"
+                                       class="btn btn-sm btn-outline-danger">Delete</a>
                                 </div>
                             </div>
                         </div>
