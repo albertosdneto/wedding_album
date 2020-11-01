@@ -1,0 +1,16 @@
+.error {
+    background-color: indianred;
+    max-width: 300px;
+    position: relative;
+    float: right;
+    border: 1px solid grey;
+}
+
+.left-items{
+    display: contents;
+    color: white;
+}
+
+.left-items a{
+    color: white;
+}
