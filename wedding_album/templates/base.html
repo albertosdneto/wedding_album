@@ -60,10 +60,13 @@
                     <li class="nav-item">
                         <span class="nav-link">{{ g.user['username'] }}</span>
                     </li>
-                    {% if g.user.role == 'host' %}
+                    {% if g.user.username == 'admin' %}
                         <li class="nav-item">
                             <a href="{{ url_for('auth.manage_users') }}" class="nav-link">Manage users</a>
                         </li>
+                    {% endif %}
+                    {% if g.user.role == 'host' %}
+
                         <li class="nav-item">
                             <a href="{{ url_for('album.all_photos') }}" class="nav-link">All Photos</a>
                         </li>
