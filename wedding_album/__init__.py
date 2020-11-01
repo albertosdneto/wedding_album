@@ -1,8 +1,10 @@
 import os
 
-from flask import Flask
 from decouple import config
+from flask import Flask
 from mongoengine import connect
+from werkzeug.security import generate_password_hash
+
 from .models import User
 
 
@@ -18,6 +20,12 @@ def create_app():
         connect(host=config('DATABASE_URL'))
         secret_key = config('SECRET_KEY')
         debug = config('DEBUG', default=False, cast=bool)
+
+    # Creates Admin on setup
+    admin = User.objects(username='admin')
+    if len(admin) == 0:
+        new_admin = User(username='admin', password=generate_password_hash('admin'), role='host')
+        new_admin.save()
 
     app.config.from_mapping(
         SECRET_KEY=secret_key,

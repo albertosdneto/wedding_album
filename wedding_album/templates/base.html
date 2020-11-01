@@ -58,6 +58,11 @@
                     <li class="nav-item">
                         <span class="nav-link">{{ g.user['username'] }}</span>
                     </li>
+                    {% if g.user.role == 'host' %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('auth.manage_users') }}" class="nav-link">Manage users</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a href="{{ url_for('auth.logout') }}" class="nav-link">Log Out</a>
                     </li>
